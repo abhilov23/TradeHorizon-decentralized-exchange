@@ -2,15 +2,18 @@
 import React from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { PrimaryButton } from "./Button";
+
+
 
 function Appbar() {
-  const { data: session } = useSession(); // Destructure session data
+  const session = useSession();
 
   return (
-    <header className="bg-gray-900 shadow-md">
+    <header className="bg-gray-50 shadow-md">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo / App Name */}
-        <h1 className="text-white text-3xl font-bold tracking-wide">
+        <h1 className="text-gray-900 text-3xl font-bold tracking-wide">
           TradeHorizon
         </h1>
 
@@ -20,7 +23,7 @@ function Appbar() {
             <li>
               <Link
                 href="/"
-                className="text-gray-300 hover:text-white transition duration-300"
+                className=" text-slate-500 hover:text-white transition duration-300"
               >
                 Home
               </Link>
@@ -28,7 +31,7 @@ function Appbar() {
             <li>
               <Link
                 href="/about"
-                className="text-gray-300 hover:text-white transition duration-300"
+                className=" text-slate-500 hover:text-white transition duration-300"
               >
                 About
               </Link>
@@ -36,7 +39,7 @@ function Appbar() {
             <li>
               <Link
                 href="/contact"
-                className="text-gray-300 hover:text-white transition duration-300"
+                className=" text-slate-500 hover:text-white transition duration-300"
               >
                 Contact
               </Link>
@@ -46,21 +49,11 @@ function Appbar() {
 
         {/* Auth Buttons */}
         <div>
-          {session ? ( // Check if session exists
-            <button
-              onClick={() => signOut()}
-              className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-5 rounded-md transition duration-300"
-            >
-              Sign Out
-            </button>
-          ) : (
-            <button
-              onClick={() => signIn()}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-5 rounded-md transition duration-300"
-            >
-              Sign In
-            </button>
-          )}
+            {session.data?.user ? <PrimaryButton onClick={() => {
+                signOut()
+            }}>Logout</PrimaryButton> : <PrimaryButton onClick={() => {
+                signIn()
+            }}>Signin</PrimaryButton>}
         </div>
       </div>
     </header>
