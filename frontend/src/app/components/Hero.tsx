@@ -1,12 +1,13 @@
 "use client";
-import { signIn, signOut } from "next-auth/react";
-import { PrimaryButton, SecondaryButton } from "./Button";
+import { signIn } from "next-auth/react";
+import { SecondaryButton } from "./Button";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 
 export default function HeroPage() {
   const session = useSession();
-
+   const router = useRouter();
 
     return (
         <section className="flex flex-col items-center justify-center text-center h-screen py-20 px-6 bg-gray-50 z-10 relative">
@@ -25,10 +26,10 @@ export default function HeroPage() {
         {/* CTA Button */}
         <div className="pt-4 flex justify-center">
         {session.data?.user ? <SecondaryButton onClick={() => {
-                signOut()
-            }}>Logout</SecondaryButton> : <SecondaryButton onClick={() => {
+                router.push('/dashboard')
+            }}>Go to Dashboard</SecondaryButton> : <SecondaryButton onClick={() => {
                 signIn()
-            }}>Signin</SecondaryButton>}
+            }}>Sign-In</SecondaryButton>}
         </div>
       </section>
     );

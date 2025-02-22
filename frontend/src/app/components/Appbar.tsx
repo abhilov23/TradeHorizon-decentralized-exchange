@@ -23,7 +23,7 @@ function Appbar() {
             <li>
               <Link
                 href="/"
-                className=" text-slate-500 hover:text-white transition duration-300"
+                className=" text-slate-500 hover:text-slate-700 transition duration-300"
               >
                 Home
               </Link>
@@ -31,7 +31,7 @@ function Appbar() {
             <li>
               <Link
                 href="/about"
-                className=" text-slate-500 hover:text-white transition duration-300"
+                className=" text-slate-500 hover:text-slate-700 transition duration-300"
               >
                 About
               </Link>
@@ -39,7 +39,7 @@ function Appbar() {
             <li>
               <Link
                 href="/contact"
-                className=" text-slate-500 hover:text-white transition duration-300"
+                className=" text-slate-500 hover:text-slate-700 transition duration-300"
               >
                 Contact
               </Link>
@@ -53,7 +53,7 @@ function Appbar() {
                 signOut()
             }}>Logout</PrimaryButton> : <PrimaryButton onClick={() => {
                 signIn()
-            }}>Signin</PrimaryButton>}
+            }}>Sign-In</PrimaryButton>}
         </div>
       </div>
     </header>
