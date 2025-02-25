@@ -1,9 +1,9 @@
-import { TokenDetails } from "@/app/lib/constants";
+import { TokenDetails } from "@/app/lib/tokens";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 // Extend TokenDetails with balance and usdBalance
-interface TokenWithBalance extends TokenDetails {
+export interface TokenWithBalance extends TokenDetails {
   balance: number; // Match API response type
   usdBalance: string; // Computed as string for display
 }

@@ -18,8 +18,8 @@ export default function RootLayout({
     <html lang="en" className="overflow-hidden">
       <body className={geistSans.variable}>
         <Providers>
-        <Appbar/>
-        {children}
+          <Appbar/>
+          {children}
         </Providers>
       </body>
     </html>
