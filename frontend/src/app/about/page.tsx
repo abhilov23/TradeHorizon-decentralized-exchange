@@ -1,6 +1,6 @@
 export default function AboutPage() {
     return (
-        <div className="bg-gradient-to-b from-slate-50 to-slate-100 py-16 px-4 overflow-y-auto h-screen">
+        <div className="bg-gradient-to-b from-slate-50 to-slate-100 py-16 px-4 overflow-hidden h-screen">
             <div className="max-w-4xl mx-auto">
                 <h1 className="text-4xl font-bold text-center mb-8">About TradeHorizon</h1>
                 
