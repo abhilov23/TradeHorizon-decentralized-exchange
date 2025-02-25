@@ -8,14 +8,14 @@ import { PublicKey } from "@solana/web3.js";
 import { TokenWithBalance, useTokens } from "../api/hooks/useToken";
 import { TokenList } from "./TokenList";
 import { Swap } from "./Swap";
+import { AddBalance } from "./AddBalance"; // Import the AddBalance component
 
-type Tab = "tokens" | "send" | "add_funds" | "swap" | "withdraw"
-const tabs: {id: Tab; name: string}[] = [
-    {id: "tokens", name: "Tokens"},
-    {id: "send", name: "Send"},
-    {id: "add_funds", name: "Add funds"},
-    {id: "withdraw", name: "Withdraw"},
-    {id: "swap", name: "Swap"},
+type Tab = "tokens" | "send" | "add_funds" | "swap" | "withdraw";
+const tabs: { id: Tab; name: string }[] = [
+  { id: "tokens", name: "Tokens" },
+  { id: "add_funds", name: "Add funds" },
+  { id: "withdraw", name: "Withdraw" },
+  { id: "swap", name: "Swap" },
 ];
 
 export const ProfileCard = ({ publicKey }: { publicKey: string }) => {
@@ -56,7 +56,7 @@ export const ProfileCard = ({ publicKey }: { publicKey: string }) => {
       <div className="max-w-4xl bg-white rounded shadow w-full">
         <Greeting
           image={session.data?.user?.image ?? ""}
-          name={session.data?.user?.name?.split(' ')[0] ?? ""}
+          name={session.data?.user?.name?.split(" ")[0] ?? ""}
         />
 
         <div className="text-slate-500 px-10 pb-6">
@@ -84,9 +84,15 @@ export const ProfileCard = ({ publicKey }: { publicKey: string }) => {
         </div>
 
         <div className="w-full flex px-10">
-          {tabs.map(tab => <TabButton key={tab.id} active={tab.id === selectedTab} onClick={() => {
-            setSelectedTab(tab.id)
-          }}>{tab.name}</TabButton>)}
+          {tabs.map((tab) => (
+            <TabButton
+              key={tab.id}
+              active={tab.id === selectedTab}
+              onClick={() => setSelectedTab(tab.id)}
+            >
+              {tab.name}
+            </TabButton>
+          ))}
         </div>
 
         <div className={`${selectedTab === "tokens" ? "visible" : "hidden"}`}>
@@ -94,20 +100,27 @@ export const ProfileCard = ({ publicKey }: { publicKey: string }) => {
             <TokenList tokens={tokenBalances?.tokens || []} />
           </div>
         </div>
-         <div className={`${selectedTab === "swap" ? "visible" : "hidden"}`}><Swap publicKey={publicKey} /> </div> 
-        <div className={`${(selectedTab !== "swap" && selectedTab !== "tokens") ? "visible" : "hidden"}`}><Warning /></div>
+        <div className={`${selectedTab === "swap" ? "visible" : "hidden"}`}>
+          <Swap publicKey={publicKey} />
+        </div>
+        <div
+          className={`${selectedTab === "add_funds" ? "visible" : "hidden"}`}
+        >
+          <div className="pt-4 bg-slate-50 p-12">
+            <AddBalance publicKey={publicKey} />
+          </div>
+        </div>
+        <div
+          className={`${(selectedTab === "send" || selectedTab === "withdraw") ? "visible" : "hidden"}`}
+        >
+          <div className="pt-4 bg-slate-50 py-32 px-10 flex justify-center">
+            We don’t yet support this feature
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-
-function Warning() {
-  return (
-    <div className="bg-slate-50 py-32 px-10 flex justify-center">
-      We dont yet support this feature
-    </div>
-  );
-}
 
 function Greeting({ image, name }: { image: string; name: string }) {
   return (
