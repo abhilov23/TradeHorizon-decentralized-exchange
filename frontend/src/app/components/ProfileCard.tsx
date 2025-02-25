@@ -8,14 +8,15 @@ import { PublicKey } from "@solana/web3.js";
 import { TokenWithBalance, useTokens } from "../api/hooks/useToken";
 import { TokenList } from "./TokenList";
 import { Swap } from "./Swap";
-import { AddBalance } from "./AddBalance"; // Import the AddBalance component
+import { AddBalance } from "./AddBalance";
+import { Withdraw } from "./Withdraw"; // Import the Withdraw component
 
-type Tab = "tokens" | "send" | "add_funds" | "swap" | "withdraw";
+type Tab = "tokens" | "add_funds" | "swap" | "withdraw";
 const tabs: { id: Tab; name: string }[] = [
   { id: "tokens", name: "Tokens" },
-  { id: "add_funds", name: "Add funds" },
-  { id: "withdraw", name: "Withdraw" },
+  { id: "add_funds", name: "Add Funds" },
   { id: "swap", name: "Swap" },
+  { id: "withdraw", name: "Withdraw" },
 ];
 
 export const ProfileCard = ({ publicKey }: { publicKey: string }) => {
@@ -77,7 +78,7 @@ export const ProfileCard = ({ publicKey }: { publicKey: string }) => {
                   setCopied(true);
                 }}
               >
-                {copied ? "Copied" : "Your wallet address"}
+                {copied ? "Copied" : "Copy Wallet Address"}
               </PrimaryButton>
             </div>
           </div>
@@ -101,20 +102,18 @@ export const ProfileCard = ({ publicKey }: { publicKey: string }) => {
           </div>
         </div>
         <div className={`${selectedTab === "swap" ? "visible" : "hidden"}`}>
-          <Swap publicKey={publicKey} />
+          <div className="pt-4 bg-slate-50 p-12">
+            <Swap publicKey={publicKey} />
+          </div>
         </div>
-        <div
-          className={`${selectedTab === "add_funds" ? "visible" : "hidden"}`}
-        >
+        <div className={`${selectedTab === "add_funds" ? "visible" : "hidden"}`}>
           <div className="pt-4 bg-slate-50 p-12">
             <AddBalance publicKey={publicKey} />
           </div>
         </div>
-        <div
-          className={`${(selectedTab === "send" || selectedTab === "withdraw") ? "visible" : "hidden"}`}
-        >
-          <div className="pt-4 bg-slate-50 py-32 px-10 flex justify-center">
-            We don’t yet support this feature
+        <div className={`${selectedTab === "withdraw" ? "visible" : "hidden"}`}>
+          <div className="pt-4 bg-slate-50 p-12">
+            <Withdraw publicKey={publicKey} />
           </div>
         </div>
       </div>
