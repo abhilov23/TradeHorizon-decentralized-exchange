@@ -16,6 +16,8 @@ export function Swap({ publicKey }: SwapProps) {
   const [baseAmount, setBaseAmount] = useState<string>("");
   const [quoteAmount, setQuoteAmount] = useState<string>("");
   const [isFetchingQuote, setIsFetchingQuote] = useState(false);
+  
+
 
   const { loading, error, tokenBalances, refetch } = useTokens(publicKey);
 
@@ -54,6 +56,7 @@ export function Swap({ publicKey }: SwapProps) {
         `https://quote-api.jup.ag/v6/quote?inputMint=${baseAsset.mint}&outputMint=${quoteAsset.mint}&amount=${amountInSmallestUnit}&slippageBps=50`,
         { signal: controller.signal }
       );
+
       
       const outputAmount = Number(response.data.outAmount) / (10 ** quoteAsset.decimals);
       setQuoteAmount(outputAmount.toFixed(Math.min(quoteAsset.decimals, 6)));
@@ -92,14 +95,12 @@ export function Swap({ publicKey }: SwapProps) {
     }
 
     try {
-      console.log("Swapping:", {
-        from: { asset: baseAsset.name, amount: baseAmount },
-        to: { asset: quoteAsset.name, amount: quoteAmount },
-      });
-      await refetch();
-      setBaseAmount("");
-      setQuoteAmount("");
-      alert("Swap completed successfully!");
+      let resp = axios.post("/api/swap",{
+        quoteAmount
+     })
+     console.log(resp);
+
+
     } catch (error) {
       console.error("Swap failed:", error);
       alert("Swap failed. Check console for details.");
