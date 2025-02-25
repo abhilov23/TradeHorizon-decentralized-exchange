@@ -61,7 +61,7 @@ Required dependencies:
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/tradehorizon.git
+   git clone https://github.com/abhilov23/TradeHorizon-decentralized-exchange.git
    cd tradehorizon
    ```
 2. Install dependencies:
@@ -132,5 +132,5 @@ This project is licensed under the MIT License.
 ---
 
 ## Contact
-For questions or collaborations, reach out via GitHub or email at `your-email@example.com`.
+For questions or collaborations, reach out via GitHub or email at `abhilovgupta01@gmail.com`.
 
